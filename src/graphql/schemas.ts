@@ -2,5 +2,11 @@ import { Query } from "./schemas/Query";
 import { userMutation } from "./schemas/Mutation";
 import { PostProfile } from "./schemas/posts/post";
 import { RegisterProfile } from "./schemas/register/Register";
-
-export const typeDefs = [Query, PostProfile, RegisterProfile, userMutation];
+import { LoginProfile } from "./schemas/Login/login";
+export const typeDefs = [
+  Query,
+  LoginProfile,
+  PostProfile,
+  RegisterProfile,
+  userMutation,
+];

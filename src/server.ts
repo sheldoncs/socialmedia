@@ -7,6 +7,10 @@ import compression from "compression";
 import { gql } from "apollo-server-express";
 import mongoose from "mongoose";
 import { mongoConnect } from "./config/mongo";
+import { verifyToken } from "./util/authToken";
+import { AuthenticationError } from "apollo-server-express";
+import * as jwt from "jsonwebtoken";
+import "dotenv/config";
 
 const app = express();
 app.use(express.json());
@@ -20,6 +24,8 @@ const apolloServer = new ApolloServer({
   typeDefs,
   resolvers,
   // context: verifyToken,
+  context: verifyToken,
+  introspection: true,
   debug: false,
 });
 apolloServer.applyMiddleware({ app, path: "/graphql" });
@@ -30,7 +36,7 @@ mongoose
     useUnifiedTopology: true,
   })
   .then(() => {
-    console.log("Connected to MONGODB successfilly.");
+    console.log("Connected to MONGODB successfully.");
     return app.listen({ port });
   })
   .then(() => {
